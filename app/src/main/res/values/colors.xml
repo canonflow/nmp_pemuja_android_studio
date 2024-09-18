@@ -11,5 +11,6 @@
     <color name="cyan_100">#D6E7EB</color>
     <color name="cyan_500">#B6E4E5</color>
     <color name="primary">#FF3F25</color>
+    <color name="primary_disabled">#E1A69E</color>
     <color name="stroke">#B3BAC0</color>
 </resources>

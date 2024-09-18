@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ScheduleDetailActivity">
+
+        <!--    NAVIGATION BAR GOES HERE    -->
+        <include
+            android:id="@+id/navigation_bar"
+            layout="@layout/navigation_bar"
+            app:navTitle="@{`Event`}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <!--    NAVIGATION BAR END HERE    -->
+
+        <!--    CONTENT LAYOUT GOES HERE    -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/base_100"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="27dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navigation_bar">
+
+            <!--      Card Image GOES HERE     -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/imageCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_image_shape"
+                app:layout_constraintTop_toTopOf="@+id/content_layout"
+                >
+                <!--       Image GOES HERE         -->
+                <!--
+                clipToOutline biar gambarnya punya border radius-nya @drawable/card_image
+                tpi, minimal API Levelnya 31 baru bisa dipakai
+                -->
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/card_image"
+                    android:clipToOutline="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/regional_qualifier" />
+                <!--       Image END HERE         -->
+
+                <!--       Card Content GOES HERE         -->
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_image_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView">
+                    <!--         Nama Event           -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Regional Qualifier"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <!--          Nama Game          -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="Valorant"
+                        android:textAlignment="center"
+                        android:textColor="@color/success"
+                        android:textSize="16sp" />
+
+                    <!--         Jam dan Lokasi Event           -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Los Angeles, CA (10.00 AM)"
+                        android:textColor="@color/black" />
+
+                    <!--         Tim yg Bermain           -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="TEAM A"
+                        android:textColor="@color/black" />
+
+                    <!--         Deskripsi Event           -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="This high-stakes event will bring togther top teams from across the region, all competing for a chance to advance to the national finals. Expect intense gameplay, strategic, plays, and thrilling moments as teams battle it out in one of the most popular first-person shooters.\n\nFans can anticipate an action-packed day filled with memorable highlights and fierce competition in the heart of the e-sports scene."
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <!--       Card END GOES HERE         -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--      Card Image END HERE     -->
+
+            <!--    Button Like GOES HERE    -->
+            <Button
+                android:id="@+id/btnNotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notify Me"
+                android:textSize="16dp"
+                android:minHeight="0dp"
+                android:paddingVertical="12dp"
+                android:fontFamily="@font/inter_bold"
+                android:backgroundTint="@drawable/button_secondary"
+                android:textColor="@color/base_100"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/content_layout" />
+
+            <!--    Button Like END HERE    -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--    CONTENT LAYOUT END HERE    -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

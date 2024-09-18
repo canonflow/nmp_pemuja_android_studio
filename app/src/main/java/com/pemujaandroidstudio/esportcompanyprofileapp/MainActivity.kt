@@ -25,6 +25,12 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        binding.btnOutSchedule.setOnClickListener {
+            val intent = Intent(this, ScheduleActivity::class.java)
+
+            startActivity(intent)
+        }
     }
 
 }

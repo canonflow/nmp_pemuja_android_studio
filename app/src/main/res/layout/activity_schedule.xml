@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ScheduleActivity">
+
+        <!--    NAVIGATION BAR GOES HERE    -->
+        <include
+            android:id="@+id/navigation_bar"
+            layout="@layout/navigation_bar"
+            app:navTitle="@{`Schedule`}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <!--    NAVIGATION BAR END HERE    -->
+
+        <!--    CONTENT LAYOUT GOES HERE    -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/base_100"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="27dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navigation_bar">
+
+            <!--    Button Schedule GOES HERE    -->
+            <Button
+                android:id="@+id/btnSeeScheduleDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="See Our Schedule Detail"
+                android:textSize="16dp"
+                android:minHeight="0dp"
+                android:paddingVertical="12dp"
+                android:fontFamily="@font/inter_bold"
+                android:backgroundTint="@drawable/button_secondary"
+                android:textColor="@color/base_100"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/content_layout" />
+
+            <!--    Button Schedule END HERE    -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--    CONTENT LAYOUT END HERE    -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

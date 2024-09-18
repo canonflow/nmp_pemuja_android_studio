@@ -55,24 +55,81 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/button"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:id="@+id/buttonViewWhoWeAre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
-                    android:background="@drawable/button_border_outline"
+                    android:backgroundTint="@android:color/transparent"
                     android:fontFamily="@font/inter_extrabold"
+                    android:minHeight="0dp"
+                    android:paddingStart="44dp"
+                    android:paddingEnd="44dp"
                     android:text="View"
                     android:textColor="@color/black"
+                    app:cornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:strokeColor="#E1DDDD" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!--      Card Who We Are END HERE     -->
 
+            <!--      Card Who We Play GOES HERE      -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="280dp"
+                android:background="@drawable/card_shape"
+                app:layout_constraintEnd_toEndOf="@id/content_layout"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="@id/content_layout"
+                app:layout_constraintTop_toTopOf="@+id/content_layout">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="What We Play"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/buttonViewWhatWePlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:minHeight="0dp"
+                    android:paddingStart="44dp"
+                    android:paddingEnd="44dp"
+                    android:text="View"
+                    android:textColor="@color/black"
+                    app:cornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--      Card Who We Play END HERE      -->
+            
+            <!--      Our Schedule Button GOES HERE      -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="440dp"
+                android:backgroundTint="@color/black"
+                android:text="Our Schedule"
+                app:cornerRadius="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="35dp" />
+            <!--      Our Schedule Button END HERE      -->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <!--    CONTENT LAYOUT GOES HERE    -->
+        <!--    CONTENT LAYOUT END HERE    -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

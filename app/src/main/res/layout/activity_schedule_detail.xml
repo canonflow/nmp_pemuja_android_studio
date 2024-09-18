@@ -123,7 +123,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!--      Card Image END HERE     -->
 
-            <!--    Button Like GOES HERE    -->
+            <!--    Button Notif GOES HERE    -->
             <Button
                 android:id="@+id/btnNotif"
                 android:layout_width="match_parent"
@@ -137,8 +137,7 @@
                 android:textColor="@color/base_100"
                 app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="@id/content_layout" />
-
-            <!--    Button Like END HERE    -->
+            <!--    Button Notif END HERE    -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!--    CONTENT LAYOUT END HERE    -->

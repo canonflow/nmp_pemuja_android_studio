@@ -1,5 +1,6 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.buttonViewWhoWeAre.setOnClickListener {
+            val intent = Intent(this, WhoWeAre::class.java)
+
+            startActivity(intent)
+        }
     }
 
 }

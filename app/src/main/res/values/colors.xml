@@ -15,5 +15,6 @@
     <color name="primary_disabled">#E1A69E</color>
     <color name="secondary">#82A2C3</color>
     <color name="secondary_disabled">#AEBAC7</color>
+    <color name="success">#a5be8f</color>
     <color name="stroke">#EBEBEB</color>
 </resources>

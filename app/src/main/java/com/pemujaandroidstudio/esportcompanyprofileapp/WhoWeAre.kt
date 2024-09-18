@@ -9,10 +9,31 @@ import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityWhoWe
 
 class WhoWeAre : AppCompatActivity() {
     private lateinit var binding: ActivityWhoWeAreBinding
+
+    companion object {
+        private var LIKE: Int = 15
+        private var IS_LIKED: Boolean = false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWhoWeAreBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.likeCounter.text = LIKE.toString()
+
+        if (IS_LIKED) {
+            binding.btnLike.isEnabled = false
+            binding.btnLike.isClickable = false;
+        }
+
+        binding.btnLike.setOnClickListener {
+            LIKE++
+            IS_LIKED = true
+            binding.btnLike.isEnabled = false
+            binding.btnLike.isClickable = false;
+            binding.likeCounter.text = LIKE.toString()
+        }
 
     }
 }

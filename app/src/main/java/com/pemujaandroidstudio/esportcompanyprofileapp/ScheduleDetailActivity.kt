@@ -17,6 +17,8 @@ class ScheduleDetailActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+
+
         binding.btnNotif.setOnClickListener {
             Toast.makeText(this, "Notification Created", Toast.LENGTH_SHORT)
                 .show()

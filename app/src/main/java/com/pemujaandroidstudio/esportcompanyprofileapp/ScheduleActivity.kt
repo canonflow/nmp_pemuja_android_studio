@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityScheduleBinding
 
 class ScheduleActivity : AppCompatActivity() {
@@ -18,10 +19,14 @@ class ScheduleActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.btnSeeScheduleDetail.setOnClickListener {
-            val intent = Intent(this, ScheduleDetailActivity::class.java)
-            startActivity(intent)
-        }
+        binding.recSchedule.layoutManager = LinearLayoutManager(this)
+        binding.recSchedule.setHasFixedSize(true)
+        binding.recSchedule.adapter = ScheduleAdapter();
+
+//        binding.btnSeeScheduleDetail.setOnClickListener {
+//            val intent = Intent(this, ScheduleDetailActivity::class.java)
+//            startActivity(intent)
+//        }
 
     }
 }

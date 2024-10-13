@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        binding.buttonWhatWePlay.setOnClickListener {
+            val intent = Intent(this, AchievementDetails::class.java)
+            startActivity(intent);
+        }
     }
 
 }

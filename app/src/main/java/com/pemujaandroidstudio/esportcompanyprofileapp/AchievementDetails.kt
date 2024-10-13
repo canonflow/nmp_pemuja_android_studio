@@ -17,7 +17,6 @@ class AchievementDetails : AppCompatActivity() {
     var currentAchievement = achievements;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityAchievementDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

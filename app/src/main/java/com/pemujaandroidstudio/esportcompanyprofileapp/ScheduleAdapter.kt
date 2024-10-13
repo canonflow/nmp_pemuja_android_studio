@@ -1,5 +1,6 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,12 +25,25 @@ class ScheduleAdapter()
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd")
     val monthFormatter = DateTimeFormatter.ofPattern("MMM")
+    val timeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a")
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         holder.binding.txtDate.text = ScheduleData.schedules[position].dateAndTime.format(dateFormatter)
         holder.binding.txtMonth.text = ScheduleData.schedules[position].dateAndTime.format(monthFormatter)
         holder.binding.txtSchedule.text = ScheduleData.schedules[position].title
         holder.binding.txtGame.text = ScheduleData.schedules[position].game + " - "
         holder.binding.txtTeam.text = ScheduleData.schedules[position].team
+
+        holder.binding.card.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ScheduleDetailActivity::class.java)
+            intent.putExtra("TITLE", ScheduleData.schedules[position].title)
+            intent.putExtra("GAME", ScheduleData.schedules[position].game)
+            intent.putExtra("TEAM", ScheduleData.schedules[position].team)
+            intent.putExtra("DESCRIPTION", ScheduleData.schedules[position].description)
+            val timeAndLocation = ScheduleData.schedules[position].location + " (" + ScheduleData.schedules[position].dateAndTime.format(timeFormatter) + " )"
+            intent.putExtra("TIME_AND_LOCATION", timeAndLocation)
+            holder.itemView.context.startActivity(intent)
+
+        }
 
     }
 }

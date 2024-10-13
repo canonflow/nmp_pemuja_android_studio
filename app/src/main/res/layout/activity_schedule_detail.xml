@@ -73,6 +73,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView">
                     <!--         Nama Event           -->
                     <TextView
+                        android:id="@+id/txtTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_bold"
@@ -83,6 +84,7 @@
 
                     <!--          Nama Game          -->
                     <TextView
+                        android:id="@+id/txtGame"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -94,6 +96,7 @@
 
                     <!--         Jam dan Lokasi Event           -->
                     <TextView
+                        android:id="@+id/txtLocationAndTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -102,6 +105,7 @@
 
                     <!--         Tim yg Bermain           -->
                     <TextView
+                        android:id="@+id/txtTeam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -111,6 +115,7 @@
 
                     <!--         Deskripsi Event           -->
                     <TextView
+                        android:id="@+id/txtDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"

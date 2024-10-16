@@ -15,10 +15,22 @@ class TeamActivity : AppCompatActivity() {
         binding = ActivityTeamBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var game = intent.getStringExtra("GAME")
+        if (game == null) {
+            game = "Valorant"
+        }
 
-        val listTeam:Array<TeamBank>;
+        // Change the image based on the game
+        val imgId = this.resources.getIdentifier("banner_" + game.lowercase().replace(" ", "_"), "drawable", this.packageName)
+        binding.imgTeamView.setImageResource(imgId)
+
+
+        val listTeam = TeamData.teams.filter {
+            it.game.equals(game, true)
+        }.toTypedArray();
+
         val adapter = TeamAdapter(this, listTeam)
-        binding.listView.adapter = adapter
+        binding.listView.adapter = adapter;
 
     }
 }

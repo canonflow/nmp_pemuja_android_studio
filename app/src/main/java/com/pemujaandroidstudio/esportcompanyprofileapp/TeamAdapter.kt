@@ -23,11 +23,10 @@ class TeamAdapter(context: Context, teams: Array<TeamBank>) :
         }
 
         val titleTextView = listItemView!!.findViewById<TextView>(android.R.id.text1)
-//        val subtitleTextView = listItemView.findViewById<TextView>(android.R.id.text2)
-//
-//        titleTextView.text = team?.name
-//        subtitleTextView.text = "Team: ${achievement?.team} | Date: ${achievement?.time?.format(
-//            DateTimeFormatter.ofPattern("yyyy"))}"
+        val subtitleTextView = listItemView!!.findViewById<TextView>(android.R.id.text2)
+
+        titleTextView.text = team?.name
+        subtitleTextView.text = team?.game
 
         return listItemView
     }

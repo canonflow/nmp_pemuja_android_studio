@@ -15,26 +15,26 @@ class TeamMemberAdapter(context: Context, private val teamMembers: Array<TeamMem
 
     ArrayAdapter<TeamMemberBank>(context, 0, teamMembers) {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var listItemView = convertView
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(context).inflate(R.layout.team_member_card, parent, false)
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var listItemView = convertView
+            if (listItemView == null) {
+                listItemView = LayoutInflater.from(context).inflate(R.layout.team_member_card, parent, false)
+            }
+
+            val currentMember = teamMembers[position]
+
+            val nameTextView = listItemView?.findViewById<TextView>(R.id.member_name)
+            nameTextView?.text = currentMember.name
+
+            val roleTextView = listItemView?.findViewById<TextView>(R.id.member_role)
+            roleTextView?.text = currentMember.role
+
+            val imageView = listItemView!!.findViewById<ImageView>(R.id.member_image)
+            Glide.with(context)
+                .load(R.drawable.maskot)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView)
+
+            return listItemView!!
         }
-
-        val currentMember = teamMembers[position]
-
-        val nameTextView = listItemView?.findViewById<TextView>(R.id.member_name)
-        nameTextView?.text = currentMember.name
-
-        val roleTextView = listItemView?.findViewById<TextView>(R.id.member_role)
-        roleTextView?.text = currentMember.role
-
-        val imageView = listItemView!!.findViewById<ImageView>(R.id.member_image)
-        Glide.with(context)
-            .load(R.drawable.maskot)
-            .apply(RequestOptions.circleCropTransform())
-            .into(imageView)
-
-        return listItemView!!
-    }
     }

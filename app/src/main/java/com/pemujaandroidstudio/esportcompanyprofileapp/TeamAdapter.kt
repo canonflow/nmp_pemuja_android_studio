@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.TwoLineListItem
 import androidx.recyclerview.widget.RecyclerView
 import com.pemujaandroidstudio.esportcompanyprofileapp.ScheduleAdapter.ScheduleViewHolder
 import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ScheduleCardBinding
@@ -19,11 +21,17 @@ class TeamAdapter(context: Context, teams: Array<TeamBank>) :
         val team = getItem(position)
         var listItemView = convertView
         if (listItemView == null){
-            listItemView = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_2, parent, false)
+            listItemView = LayoutInflater.from(context).inflate(R.layout.team_list, parent, false)
         }
 
-        val titleTextView = listItemView!!.findViewById<TextView>(android.R.id.text1)
-        val subtitleTextView = listItemView!!.findViewById<TextView>(android.R.id.text2)
+        val titleTextView = listItemView!!.findViewById<TextView>(R.id.txtTeamName)
+        val subtitleTextView = listItemView!!.findViewById<TextView>(R.id.txtTeamGameName)
+        val container = listItemView!!.findViewById<TwoLineListItem>(R.id.teamListContainer)
+
+        // Bikin Intent ke member
+        container.setOnClickListener{
+            Toast.makeText(listItemView.context, "Team ${team?.name} Clicked", Toast.LENGTH_SHORT).show()
+        }
 
         titleTextView.text = team?.name
         subtitleTextView.text = team?.game

@@ -1,6 +1,7 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +29,11 @@ class TeamAdapter(context: Context, teams: Array<TeamBank>) :
         val subtitleTextView = listItemView!!.findViewById<TextView>(R.id.txtTeamGameName)
         val container = listItemView!!.findViewById<TwoLineListItem>(R.id.teamListContainer)
 
-        // Bikin Intent ke member
         container.setOnClickListener{
-            Toast.makeText(listItemView.context, "Team ${team?.name} Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, TeamMemberDetails::class.java)
+            intent.putExtra("GAME", team?.game)
+            intent.putExtra("TEAM", team?.name)
+            context.startActivity(intent)
         }
 
         titleTextView.text = team?.name

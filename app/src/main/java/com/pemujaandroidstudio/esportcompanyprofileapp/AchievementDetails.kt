@@ -14,11 +14,17 @@ import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityMainB
 
 class AchievementDetails : AppCompatActivity() {
     private lateinit var binding: ActivityAchievementDetailsBinding
+    private lateinit var game: String
     var currentAchievement = achievements;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAchievementDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Nama Game yg mau dilihat
+        game = intent.getStringExtra("GAME").toString()
+        val imgId = this.resources.getIdentifier("banner_" + game.lowercase().replace(" ", "_"), "drawable", this.packageName)
+        binding.imageView.setImageResource(imgId)
 
         val yearSpinner: Spinner = binding.yearspinner
         val years = arrayOf("All", "2022", "2023", "2024", "2025", "2026") // Add more years as needed
@@ -42,10 +48,13 @@ class AchievementDetails : AppCompatActivity() {
     fun UpdateAchiements(year: String)
     {
         val filteredList:Array<AchievementBank> = if (year == "All") {
-            achievements
+            achievements.filter {
+                it.game.equals(game, true)
+            }.toTypedArray()
         } else {
             achievements.filter {
-                it.time.year.toString() == year // Filter based on selected year
+                it.time.year.toString() == year && // Filter based on selected year
+                it.game.equals(game, true)
             }.toTypedArray()
         }
         val adapter = AchievementAdapter(this, filteredList)

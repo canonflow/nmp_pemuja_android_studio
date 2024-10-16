@@ -13,9 +13,11 @@
         android:theme="@style/Theme.EsportCompanyProfileApp"
         tools:targetApi="31">
         <activity
+            android:name=".WhatWePlayActivity"
+            android:exported="false" />
+        <activity
             android:name=".AchievementDetails"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ScheduleDetailActivity"
             android:exported="false" />

@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonWhatWePlay.setOnClickListener {
-            val intent = Intent(this, AchievementDetails::class.java)
+            val intent = Intent(this, WhatWePlayActivity::class.java)
             startActivity(intent);
         }
     }

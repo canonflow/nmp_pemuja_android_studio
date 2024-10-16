@@ -37,7 +37,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ps_f2p_val_console_launch_16x9"
+                android:src="@drawable/banner_valorant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -63,8 +63,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtUsername"
-                android:layout_width="330dp"
-                android:layout_height="47dp"
+                android:layout_width="328dp"
+                android:layout_height="59dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="33dp"
                 android:layout_marginEnd="1dp"
@@ -73,15 +73,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtUsernameValue"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="username" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtPassword"
-                android:layout_width="326dp"
-                android:layout_height="51dp"
+                android:layout_width="324dp"
+                android:layout_height="63dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="56dp"
                 android:layout_marginEnd="1dp"
@@ -91,8 +92,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtUsername">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtPasswordValue"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="password"
                     android:password="true" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +128,7 @@
 
     <Button
         android:id="@+id/btnSignUp"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"

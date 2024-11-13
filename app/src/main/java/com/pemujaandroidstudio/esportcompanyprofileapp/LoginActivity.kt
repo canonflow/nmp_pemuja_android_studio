@@ -1,20 +1,46 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var binding:ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+        var username = sharedPreferences.getString("USERNAME",
+            "").toString()
+        if(!username.equals("")){
+            val intent = Intent(this, WhatWePlayActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.btnSignIn.setOnClickListener {
+            username = binding.txtUsernameValue.text.toString() ?: ""
+            val password = binding.txtPasswordValue.text.toString() ?: ""
+
+            if(!username.equals("") && !password.equals("")){
+                val editor = sharedPreferences.edit()
+                editor.putString("USERNAME", username)
+                editor.apply()
+                val intent = Intent(this, WhatWePlayActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
+
+
 }

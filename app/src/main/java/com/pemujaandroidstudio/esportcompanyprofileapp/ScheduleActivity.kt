@@ -23,10 +23,6 @@ class ScheduleActivity : AppCompatActivity() {
         binding.recSchedule.setHasFixedSize(true)
         binding.recSchedule.adapter = ScheduleAdapter();
 
-//        binding.btnSeeScheduleDetail.setOnClickListener {
-//            val intent = Intent(this, ScheduleDetailActivity::class.java)
-//            startActivity(intent)
-//        }
 
     }
 }

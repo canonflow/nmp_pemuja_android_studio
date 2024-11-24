@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_what_we_play"
+        android:icon="@drawable/maskot"
+        android:title="What We Play" />
+    <item
+        android:id="@+id/nav_schedule"
+        android:icon="@drawable/maskot"
+        android:title="Our Schedule" />
+    <item
+        android:id="@+id/nav_who_we_are"
+        android:icon="@drawable/maskot"
+        android:title="Who We Are" />
+</menu>

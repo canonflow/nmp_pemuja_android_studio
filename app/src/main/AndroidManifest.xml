@@ -31,7 +31,7 @@
             android:exported="false" />
         <activity
             android:name=".AchievementDetails"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ScheduleDetailActivity"
             android:exported="false" />

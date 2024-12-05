@@ -11,15 +11,15 @@
         tools:context=".WhoWeAre">
 
         <!--    NAVIGATION BAR GOES HERE    -->
-        <include
-            android:id="@+id/navigation_bar"
-            layout="@layout/navigation_bar"
-            app:navTitle="@{`Who We Are`}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--        <include-->
+<!--            android:id="@+id/navigation_bar"-->
+<!--            layout="@layout/navigation_bar"-->
+<!--            app:navTitle="@{`Who We Are`}"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
         <!--    NAVIGATION BAR END HERE    -->
 
         <!--    CONTENT LAYOUT GOES HERE    -->
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigation_bar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!--      Card Image GOES HERE     -->
         <androidx.constraintlayout.widget.ConstraintLayout

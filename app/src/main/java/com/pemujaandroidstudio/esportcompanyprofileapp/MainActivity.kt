@@ -1,18 +1,16 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +34,32 @@ class MainActivity : AppCompatActivity() {
         toggle.isDrawerIndicatorEnabled = true
         binding.root.addDrawerListener(toggle)
         toggle.syncState()
+
+        binding.navigationMenu.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.btnApplyTeam -> {
+                    // Trigger Apply Team Disini
+//                    val intent = Intent(this, ApplyTeamActivity::class.java)
+//                    startActivity(intent)
+//                    true
+                }
+                R.id.btnSignOut -> {
+                    Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()
+                    // Clear SharedPreference
+                    val settings: SharedPreferences = getSharedPreferences(
+                        "SETTING", MODE_PRIVATE
+                    )
+                    settings.edit().remove("USERNAME").apply()
+
+                    // Redirect to login page
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else -> true
+            }
+            true
+        }
 
         setupViewPager()
         setupBottomNavigation()

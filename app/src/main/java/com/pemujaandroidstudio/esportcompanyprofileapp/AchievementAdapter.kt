@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import java.time.format.DateTimeFormatter
 
-class AchievementAdapter(context: Context, achievements: Array<AchievementBank>) :
+class   AchievementAdapter(context: Context, achievements: Array<AchievementBank>) :
     ArrayAdapter<AchievementBank>(context, 0, achievements) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

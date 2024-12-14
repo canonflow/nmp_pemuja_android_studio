@@ -1,7 +1,10 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -21,8 +24,15 @@ class ApplyTeam : AppCompatActivity() {
 
         binding.recProposal.layoutManager = LinearLayoutManager(this)
         binding.recProposal.setHasFixedSize(true)
-        binding.recProposal.adapter = ProposalAdapter()
-
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+        var username = sharedPreferences.getString("USERNAME",
+            "").toString()
+        Log.d("ApplyTeam", username)
+        ProposalData.initialize(this, username) {
+            Log.d("ApplyTeam", "Proposals successfully initialized.")
+            binding.recProposal.adapter = ProposalAdapter()
+        }
         binding.btnApplyTeamNew.setOnClickListener {
             val intent = Intent(this, ApplyTeamNew::class.java)
             startActivity(intent)

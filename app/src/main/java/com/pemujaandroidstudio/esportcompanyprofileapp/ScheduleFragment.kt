@@ -1,6 +1,7 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,12 @@ class ScheduleFragment : Fragment() {
 
         binding.recSchedule.layoutManager = LinearLayoutManager(requireContext())
         binding.recSchedule.setHasFixedSize(true)
-        binding.recSchedule.adapter = ScheduleAdapter()
+
+        ScheduleData.initialize(requireContext()) {
+            Log.d("AchievementActivity", "AchievementData : ${TeamMemberData.teamMembers.size}")
+            val adapter = ScheduleAdapter()
+            binding.recSchedule.adapter = adapter;
+            adapter.notifyDataSetChanged()
+        }
     }
 }

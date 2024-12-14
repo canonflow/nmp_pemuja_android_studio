@@ -1,3 +1,3 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
-data class ProposalBank(var game:String, var team:String, var description:String, var status:String)
+data class ProposalBank(var member:String, var team:String, var game:String, var description:String, var status:String)

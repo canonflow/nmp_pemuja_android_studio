@@ -41,6 +41,8 @@ class ScheduleAdapter()
             intent.putExtra("DESCRIPTION", ScheduleData.schedules[position].description)
             val timeAndLocation = ScheduleData.schedules[position].location + " (" + ScheduleData.schedules[position].dateAndTime.format(timeFormatter) + " )"
             intent.putExtra("TIME_AND_LOCATION", timeAndLocation)
+            intent.putExtra("IMAGE", ScheduleData.schedules[position].image)
+
             holder.itemView.context.startActivity(intent)
 
         }

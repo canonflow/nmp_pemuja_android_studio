@@ -1,6 +1,7 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityTeamMemberDetailsBinding
+import com.squareup.picasso.Picasso
 
 class TeamMemberDetails : AppCompatActivity() {
     private lateinit var binding: ActivityTeamMemberDetailsBinding
@@ -17,7 +19,6 @@ class TeamMemberDetails : AppCompatActivity() {
         binding = ActivityTeamMemberDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val listView = findViewById<ListView>(R.id.member)
         val listView = binding.member
 
         var game = intent.getStringExtra("GAME")
@@ -27,19 +28,27 @@ class TeamMemberDetails : AppCompatActivity() {
         var team = intent.getStringExtra("TEAM")
 
 
-//        val teamName = findViewById<TextView>(R.id.teamName)
         val teamName = binding.teamName
-//        teamName.setText(team.toString())
         teamName.text = team.toString()
 
-//        val banner = findViewById<ImageView>(R.id.gameBanner)
-        val banner = binding.gameBanner
-        val imgId = this.resources.getIdentifier("banner_" + game.lowercase().replace(" ", "_"), "drawable", this.packageName)
-        banner.setImageResource(imgId)
+        val imageLink = GameData.games.firstOrNull { it.name.equals(game, true) }?.imageLink
 
-        var filteredTeamMembers: Array<TeamMemberBank> = filter(TeamMemberData.teamMembers, team, game)
-        val adapter = TeamMemberAdapter(this, filteredTeamMembers)
-        listView.adapter = adapter
+        if (imageLink != null) {
+            Picasso.get()
+                .load(imageLink)
+                .into(binding.gameBanner)
+        } else {
+            binding.gameBanner.setImageResource(R.drawable.banner_valorant)
+        }
+
+        TeamMemberData.initialize(this) {
+            Log.d("TeamActivity", "TeamData : ${TeamMemberData.teamMembers.size}")
+            var filteredTeamMembers: Array<TeamMemberBank> = filter(TeamMemberData.teamMembers, team, game)
+            Log.d("TeamActivity", "Filtered Teams: ${filteredTeamMembers.size}")
+            val adapter = TeamMemberAdapter(this, filteredTeamMembers)
+            listView.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
     }
     
     fun filter(teamMembers:Array<TeamMemberBank>, team: String?, game: String?): Array<TeamMemberBank> {

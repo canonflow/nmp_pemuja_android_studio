@@ -21,7 +21,7 @@ class ProposalAdapter(): RecyclerView.Adapter<ProposalAdapter.ProposalViewHolder
     }
 
     override fun onBindViewHolder(holder: ProposalViewHolder, position: Int) {
-        holder.binding.txtNameProposal.text=ProposalData.proposals[position].game
+        holder.binding.txtNameProposal.text=ProposalData.proposals[position].team
         holder.binding.txtStatusProposal.text=ProposalData.proposals[position].status
     }
 

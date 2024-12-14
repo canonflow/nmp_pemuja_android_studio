@@ -7,4 +7,5 @@ data class ScheduleBank(var dateAndTime: LocalDateTime,
                         var game: String,
                         var team: String,
                         var location: String,
-                        var description: String)
+                        var description: String,
+                        var image: String)

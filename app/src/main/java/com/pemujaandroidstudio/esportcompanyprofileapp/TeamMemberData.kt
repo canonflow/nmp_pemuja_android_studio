@@ -1,50 +1,57 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Context
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.pemujaandroidstudio.esportcompanyprofileapp.TeamData.teams
+import org.json.JSONObject
+
 object TeamMemberData {
-    var teamMembers: Array<TeamMemberBank> = arrayOf(
-        // Valorant Teams
-        TeamMemberBank("Alice", "Duelist", "Team A", "Valorant"),
-        TeamMemberBank("Bob", "Controller", "Team A", "Valorant"),
-        TeamMemberBank("Charlie", "Sentinel", "Team A", "Valorant"),
+    var teamMembers: Array<TeamMemberBank> = emptyArray()
+    private const val TAG = "TeamMemberData"
 
-        TeamMemberBank("Dave", "Duelist", "Team B", "Valorant"),
-        TeamMemberBank("Eve", "Controller", "Team B", "Valorant"),
-        TeamMemberBank("Frank", "Sentinel", "Team B", "Valorant"),
+    fun initialize(context: Context, onComplete: () -> Unit) {
+        val url = "https://ubaya.xyz/native/160422065/get_members.php"
 
-        TeamMemberBank("Grace", "Duelist", "Team C", "Valorant"),
-        TeamMemberBank("Heidi", "Controller", "Team C", "Valorant"),
-        TeamMemberBank("Ivan", "Sentinel", "Team C", "Valorant"),
+        val jsonRequest = JSONObject()
 
-        // Mobile Legends Teams
-        TeamMemberBank("Jack", "Top Laner", "Team A", "Mobile Legends"),
-        TeamMemberBank("Karl", "Mid", "Team A", "Mobile Legends"),
-        TeamMemberBank("Liam", "Bot Laner", "Team A", "Mobile Legends"),
-        TeamMemberBank("Nina", "Support", "Team A", "Mobile Legends"),
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, jsonRequest,
+            { response ->
+                try {
+                    if (response.getString("result") == "OK") {
+                        val data = response.getJSONArray("data")
+                        val fetchedTeams = mutableListOf<TeamMemberBank>()
 
-        TeamMemberBank("Mia", "Top Laner", "Team B", "Mobile Legends"),
-        TeamMemberBank("Oscar", "Mid", "Team B", "Mobile Legends"),
-        TeamMemberBank("Paul", "Bot Laner", "Team B", "Mobile Legends"),
-        TeamMemberBank("Quinn", "Support", "Team B", "Mobile Legends"),
+                        for (i in 0 until data.length()) {
+                            val gameObject = data.getJSONObject(i)
+                            fetchedTeams.add(
+                                TeamMemberBank(
+                                    name = gameObject.getString("username"),
+                                    team = gameObject.getString("Team"),
+                                    game = gameObject.getString("Game"),
+                                    imagelink = gameObject.getString("image"),
+                                    role = gameObject.getString("role")
+                                )
+                            )
+                        }
 
-        TeamMemberBank("Ruth", "Top Laner", "Team C", "Mobile Legends"),
-        TeamMemberBank("Sam", "Mid", "Team C", "Mobile Legends"),
-        TeamMemberBank("Tina", "Bot Laner", "Team C", "Mobile Legends"),
-        TeamMemberBank("Uma", "Support", "Team C", "Mobile Legends"),
-
-        // Dota 2 Teams
-        TeamMemberBank("Victor", "Top Laner", "Team A", "Dota 2"),
-        TeamMemberBank("Wendy", "Mid", "Team A", "Dota 2"),
-        TeamMemberBank("Xander", "Bot Laner", "Team A", "Dota 2"),
-        TeamMemberBank("Yara", "Support", "Team A", "Dota 2"),
-
-        TeamMemberBank("Zara", "Top Laner", "Team B", "Dota 2"),
-        TeamMemberBank("Adam", "Mid", "Team B", "Dota 2"),
-        TeamMemberBank("Brian", "Bot Laner", "Team B", "Dota 2"),
-        TeamMemberBank("Clara", "Support", "Team B", "Dota 2"),
-
-        TeamMemberBank("David", "Top Laner", "Team C", "Dota 2"),
-        TeamMemberBank("Eva", "Mid", "Team C", "Dota 2"),
-        TeamMemberBank("Fred", "Bot Laner", "Team C", "Dota 2"),
-        TeamMemberBank("Gina", "Support", "Team C", "Dota 2")
-    )
+                        teamMembers = fetchedTeams.toTypedArray()
+                        Log.d(TAG, "Team Members fetched successfully: ${teams.size}")
+                        onComplete()
+                    } else {
+                        Log.w(TAG, "Failed to fetch team members: ${response.getString("message")}")
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error parsing response: ${e.message}")
+                }
+            },
+            { error ->
+                Log.e(TAG, "Error fetching data: ${error.message}")
+            }
+        )
+        Volley.newRequestQueue(context).add(request)
+    }
 }

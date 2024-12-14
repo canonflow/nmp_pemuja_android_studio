@@ -1,15 +1,62 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Context
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object ScheduleData {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    var schedules: Array<ScheduleBank> = arrayOf(
-        ScheduleBank(LocalDateTime.parse("2024-09-05 10:00:00", formatter),"Regional Qualifier - Valorant","Valorant", "Team A", "Los Angeles, CA", "This high-stakes event will bring together top teams from across the region, all competing for a chance to advance to the national finals. Expect intense gameplay, strategic, plays, and thrilling moments as teams battle it out in one of the most popular first-person shooters.\\n\\nFans can anticipate an action-packed day filled with memorable highlights and fierce competition in the heart of the e-sports scene."),
-        ScheduleBank(LocalDateTime.parse("2024-09-10 14:30:00", formatter),"League of Legends Workshop","LOL", "Team C", "Bucharest, RO", "This high-stakes event will bring together top teams from across the region, all competing for a chance to advance to the national finals. Expect intense gameplay, strategic, plays, and thrilling moments as teams battle it out in one of the most popular first-person shooters.\\n\\nFans can anticipate an action-packed day filled with memorable highlights and fierce competition in the heart of the e-sports scene."),
-        ScheduleBank(LocalDateTime.parse("2024-10-07 07:00:00", formatter),"Call of Duty Championship","COD", "Team A", "Vancouver, CN", "This high-stakes event will bring together top teams from across the region, all competing for a chance to advance to the national finals. Expect intense gameplay, strategic, plays, and thrilling moments as teams battle it out in one of the most popular first-person shooters.\\n\\nFans can anticipate an action-packed day filled with memorable highlights and fierce competition in the heart of the e-sports scene."),
-        ScheduleBank(LocalDateTime.parse("2024-11-11 23:30:00", formatter),"Dota 2 International 2024","Dota 2", "Team B", "Copenhagen, DK", "This high-stakes event will bring together top teams from across the region, all competing for a chance to advance to the national finals. Expect intense gameplay, strategic, plays, and thrilling moments as teams battle it out in one of the most popular first-person shooters.\\n\\nFans can anticipate an action-packed day filled with memorable highlights and fierce competition in the heart of the e-sports scene."),
-        ScheduleBank(LocalDateTime.parse("2024-12-04 18:00:00", formatter),"Fortnite Invitational","Fortnite", "Team A", "Settle, UK", "This high-stakes event will bring together top teams from across the region, all competing for a chance to advance to the national finals. Expect intense gameplay, strategic, plays, and thrilling moments as teams battle it out in one of the most popular first-person shooters.\\n\\nFans can anticipate an action-packed day filled with memorable highlights and fierce competition in the heart of the e-sports scene.")
-    )
+    var schedules: Array<ScheduleBank> = emptyArray()
+    private const val TAG = "ScheduleData"
+
+    fun initialize(context: Context, onComplete: () -> Unit) {
+        val url = "https://ubaya.xyz/native/160422065/schedules.php"
+
+        val jsonRequest = JSONObject()
+
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, jsonRequest,
+            { response ->
+                try {
+                    if (response.getString("result") == "OK") {
+                        val data = response.getJSONArray("data")
+                        val fetchedSchedule = mutableListOf<ScheduleBank>()
+
+                        for (i in 0 until data.length()) {
+                            val gameObject = data.getJSONObject(i)
+                            fetchedSchedule.add(
+                                ScheduleBank(
+                                    title = gameObject.getString("name"),
+                                    team = gameObject.getString("Team"),
+                                    game = gameObject.getString("Game"),
+                                    description = gameObject.getString("description"),
+                                    location = gameObject.getString("location"),
+                                    dateAndTime = LocalDateTime.parse(gameObject.getString("date"), formatter),
+                                    image = gameObject.getString("image")
+                                )
+                            )
+                        }
+
+                        schedules = fetchedSchedule.toTypedArray()
+                        Log.d(TAG, "Schedules fetched successfully: ${schedules.size}")
+                        onComplete()
+                    } else {
+                        Log.w(TAG, "Failed to fetch achievement: ${response.getString("message")}")
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error parsing response: ${e.message}")
+                }
+            }
+            ,
+            { error ->
+                Log.e(TAG, "Error fetching data: ${error.message}")
+            }
+        )
+        Volley.newRequestQueue(context).add(request)
+    }
 }

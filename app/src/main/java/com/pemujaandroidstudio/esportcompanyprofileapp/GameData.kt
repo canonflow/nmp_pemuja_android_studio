@@ -1,21 +1,56 @@
 package com.pemujaandroidstudio.esportcompanyprofileapp
 
+import android.content.Context
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
+
 object GameData {
-    var games: Array<GameBank> = arrayOf(
-        GameBank(
-            "Valorant",
-            "Valorant is a free-to-play first-person tactical shooter developed and published by Riot Games. Players engage in strategic, team-based matches where they must complete objectives and outsmart opponents to win.",
-            R.drawable.banner_valorant
-        ),
-        GameBank(
-            "Mobile Legends",
-            "Mobile Legends: Bang Bang is a multiplayer online battle arena (MOBA) game designed for mobile phones. The game is free-to-play and is only monetized through in-game purchases like characters and skins. Each player can control a selectable character, called a Hero, with unique abilities and traits. There are six roles that define the main purpose of heroes: Tank, Marksman, Assassin, Fighter, Mage, and Support. These roles determine the responsibilities of players for their respective teams. Players can also set specific builds for heroes which include in-game items and emblems.",
-            R.drawable.banner_mobile_legends
-        ),
-        GameBank(
-            "Dota 2",
-            "Dota 2 is a multiplayer online battle arena (MOBA) video game in which two teams of five players compete to destroy a large structure defended by the opposing team known as the \"Ancient\" whilst defending their own. As in Defense of the Ancients, the game is controlled using standard real-time strategy controls, and is presented on a single map in a three-dimensional isometric perspective.\n\nTen players each control one of the game's 125 playable characters, known as \"heroes\", with each having their own design, strengths, and weaknesses. Heroes are divided into two primary roles, known as the core and support.",
-            R.drawable.banner_dota_2
+    var games: Array<GameBank> = emptyArray()
+    private const val TAG = "GameData"
+    var isInitialized: Boolean = false
+
+    fun initialize(context: Context, onComplete: () -> Unit) {
+        val url = "https://ubaya.xyz/native/160422065/game.php"
+
+        val jsonRequest = JSONObject()
+
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, jsonRequest,
+            { response ->
+                try {
+                    if (response.getString("result") == "OK") {
+                        val data = response.getJSONArray("data")
+                        val fetchedGames = mutableListOf<GameBank>()
+
+                        for (i in 0 until data.length()) {
+                            val gameObject = data.getJSONObject(i)
+                            fetchedGames.add(
+                                GameBank(
+                                    name = gameObject.getString("name"),
+                                    description = gameObject.getString("description"),
+                                    imageLink = gameObject.getString("image")
+                                )
+                            )
+                        }
+
+                        games = fetchedGames.toTypedArray()
+                        Log.d(TAG, "Games fetched successfully: ${games.size}")
+                        onComplete()
+                    } else {
+                        Log.w(TAG, "Failed to fetch games: ${response.getString("message")}")
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error parsing response: ${e.message}")
+                }
+            },
+            { error ->
+                Log.e(TAG, "Error fetching data: ${error.message}")
+            }
         )
-    )
+        Volley.newRequestQueue(context).add(request)
+        isInitialized = true
+    }
 }

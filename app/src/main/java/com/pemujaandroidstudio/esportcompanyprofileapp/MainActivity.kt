@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.btnApplyTeam -> {
                     // Trigger Apply Team Disini
-//                    val intent = Intent(this, ApplyTeamActivity::class.java)
-//                    startActivity(intent)
-//                    true
+                    val intent = Intent(this, ApplyTeam::class.java)
+                    startActivity(intent)
+                    true
                 }
                 R.id.btnSignOut -> {
                     Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()

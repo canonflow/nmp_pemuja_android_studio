@@ -22,7 +22,5 @@ class ScheduleActivity : AppCompatActivity() {
         binding.recSchedule.layoutManager = LinearLayoutManager(this)
         binding.recSchedule.setHasFixedSize(true)
         binding.recSchedule.adapter = ScheduleAdapter();
-
-
     }
 }

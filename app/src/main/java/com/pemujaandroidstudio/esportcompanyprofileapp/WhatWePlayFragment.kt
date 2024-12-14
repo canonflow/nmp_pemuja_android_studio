@@ -16,7 +16,6 @@ class WhatWePlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Initialize binding with the layout inflater
         binding = FragmentWhatWePlayBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -24,9 +23,13 @@ class WhatWePlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setup RecyclerView
+        var adapter = GameAdapter()
         binding.recGames.layoutManager = LinearLayoutManager(requireContext())
-        binding.recGames.adapter = GameAdapter()
+        binding.recGames.adapter = adapter
         binding.recGames.setHasFixedSize(true)
+
+        GameData.initialize(requireContext()) {
+            adapter.notifyDataSetChanged()
+        }
     }
 }

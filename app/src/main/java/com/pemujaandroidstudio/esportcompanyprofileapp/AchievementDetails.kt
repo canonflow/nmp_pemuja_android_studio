@@ -2,6 +2,7 @@ package com.pemujaandroidstudio.esportcompanyprofileapp
 
 import android.R
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pemujaandroidstudio.esportcompanyprofileapp.AchievementData.achievements
 import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityAchievementDetailsBinding
 import com.pemujaandroidstudio.esportcompanyprofileapp.databinding.ActivityMainBinding
+import com.squareup.picasso.Picasso
 
 class AchievementDetails : AppCompatActivity() {
     private lateinit var binding: ActivityAchievementDetailsBinding
@@ -21,10 +23,24 @@ class AchievementDetails : AppCompatActivity() {
         binding = ActivityAchievementDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Nama Game yg mau dilihat
         game = intent.getStringExtra("GAME").toString()
-        val imgId = this.resources.getIdentifier("banner_" + game.lowercase().replace(" ", "_"), "drawable", this.packageName)
-        binding.imageView.setImageResource(imgId)
+
+        val imageLink = GameData.games.firstOrNull { it.name.equals(game, true) }?.imageLink
+
+        if (imageLink != null) {
+            Picasso.get()
+                .load(imageLink)
+                .into(binding.imageView)
+        } else {
+            binding.imageView.setImageResource(com.pemujaandroidstudio.esportcompanyprofileapp.R.drawable.banner_valorant)
+        }
+
+        AchievementData.initialize(this) {
+            Log.d("AchievementActivity", "AchievementData : ${TeamMemberData.teamMembers.size}")
+            val adapter = AchievementAdapter(this, AchievementData.achievements)
+            binding.listView.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
 
         val yearSpinner: Spinner = binding.yearspinner
         val years = arrayOf("All", "2022", "2023", "2024", "2025", "2026") // Add more years as needed
@@ -35,7 +51,6 @@ class AchievementDetails : AppCompatActivity() {
 
         yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                // Get the selected year
                 val selectedYear = parent.getItemAtPosition(position).toString()
                 UpdateAchiements(selectedYear)
             }

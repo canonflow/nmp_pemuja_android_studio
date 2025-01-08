@@ -65,42 +65,48 @@ class ApplyTeamNew : AppCompatActivity() {
             return
         }
 
-        val existingProposals = ProposalData.proposals.map { Pair(it.team, it.game) }.toSet()
-        Log.d("ProposalData", "Existing Proposals: $existingProposals")
+        val sharedPreferences: SharedPreferences = getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+        var username = sharedPreferences.getString("USERNAME", "").toString()
+        ProposalData.proposal_check(this, username) {
+            Log.d("Proposal", ProposalData.proposals.toString());
+            val existingProposals = ProposalData.proposals.map { Pair(it.team, it.game) }.toSet()
+            Log.d("ProposalData", "Existing Proposals: $existingProposals")
 
-        val filteredGames = GameData.games
-            .filter { game ->
-                TeamData.teams.any { team ->
-                    team.game.equals(game.name, true) &&
-                            !(existingProposals.contains(Pair(team.name, team.game)))
+            var filteredGames = GameData.games
+                .filter { game ->
+                    TeamData.teams.any { team ->
+                        team.game.equals(game.name, true) &&
+                                !(existingProposals.contains(Pair(team.name, team.game)))
+                    }
+                }
+                .map { it.name }
+                .toTypedArray()
+            if (filteredGames.isEmpty()) {
+                // Show a message and disable the page functionality
+                Toast.makeText(this, "No available games with eligible teams.", Toast.LENGTH_LONG).show()
+                disablePage()
+//                return
+//                filteredGames = GameData.games;
+            } else {
+                Log.d("FilteredGames", "Filtered Games: ${filteredGames.joinToString()}")
+
+                val adapterGameSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, filteredGames)
+                adapterGameSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerGame.adapter = adapterGameSpinner
+
+                binding.spinnerGame.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        val selectedGame = filteredGames[position]
+                        setSpinnerTeam(selectedGame, existingProposals)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        val selectedGame = if (filteredGames.isNotEmpty()) filteredGames[0] else "No Game Available"
+                        setSpinnerTeam(selectedGame, existingProposals)
+                    }
                 }
             }
-            .map { it.name }
-            .toTypedArray()
-        if (filteredGames.isEmpty()) {
-            // Show a message and disable the page functionality
-            Toast.makeText(this, "No available games with eligible teams.", Toast.LENGTH_LONG).show()
-            disablePage()
-            return
-        }
-
-        Log.d("FilteredGames", "Filtered Games: ${filteredGames.joinToString()}")
-
-        val adapterGameSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, filteredGames)
-        adapterGameSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerGame.adapter = adapterGameSpinner
-
-        binding.spinnerGame.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedGame = filteredGames[position]
-                setSpinnerTeam(selectedGame, existingProposals)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                val selectedGame = if (filteredGames.isNotEmpty()) filteredGames[0] else "No Game Available"
-                setSpinnerTeam(selectedGame, existingProposals)
-            }
-        }
+        };
     }
 
     private fun setSpinnerTeam(selectedGame: String, existingProposals: Set<Pair<String, String>>) {
@@ -155,7 +161,7 @@ class ApplyTeamNew : AppCompatActivity() {
                 params["game"] = binding.spinnerGame.selectedItem.toString()
                 params["description"] = binding.txtDescription.text.toString()
                 params["username"] = username
-                params["status"] = "Waiting"
+                params["status"] = "WAITING"
                 return params
             }
         }

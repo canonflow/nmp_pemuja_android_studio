@@ -24,6 +24,7 @@ class AchievementDetails : AppCompatActivity() {
         setContentView(binding.root)
 
         game = intent.getStringExtra("GAME").toString()
+        binding.textView.text = game;
 
         val imageLink = GameData.games.firstOrNull { it.name.equals(game, true) }?.imageLink
 

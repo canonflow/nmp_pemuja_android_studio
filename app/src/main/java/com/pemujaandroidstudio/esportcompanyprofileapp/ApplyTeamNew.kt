@@ -44,8 +44,10 @@ class ApplyTeamNew : AppCompatActivity() {
 
         binding.btnApplyTeam.setOnClickListener {
             submitProposal(username)
-            val intent = Intent(this, ApplyTeam::class.java)
+//            val intent = Intent(this, ApplyTeam::class.java)
+            val intent = Intent(this, MainActivity::class.java);
             startActivity(intent)
+            finish()
         }
     }
 
